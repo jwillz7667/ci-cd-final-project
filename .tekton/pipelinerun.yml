@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: ci-cd-final-project-
+spec:
+  pipelineRef:
+    name: ci-cd-final-project
+  serviceAccountName: pipeline
+  params:
+    - name: build-image
+      value: image-registry.openshift-image-registry.svc:5000/sn-labs-jwilliams119/ci-cd-final-project:latest
+  workspaces:
+    - name: output
+      persistentVolumeClaim:
+        claimName: oc-lab-pvc
+  timeouts:
+    pipeline: 30m
